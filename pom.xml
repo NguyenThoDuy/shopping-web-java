@@ -16,6 +16,10 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+	<source>11</source> 
+ 	<target>11</target> 
+ 	<testSource>11</testSource> 
+ 	<testTarget>11</testTarget>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,9 +100,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>3.8.0</version>
 				<configuration>
-					<release>11</release>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
