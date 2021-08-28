@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/main-control :: main-fragment(
+~{:: #main-content}) }">
+<!-- Content Wrapper. Contains page content -->
+<div style="min-height: 1416.81px;" id="main-content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>PRODUCT</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin"><i class="fas fa-home"></i>&nbsp;Home</a></li>
+                        <li class="breadcrumb-item"><a href="/product">Product</a></li>
+                        <li class="breadcrumb-item active">edit</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <form th:action="@{/product/update}" method="post" enctype="multipart/form-data"  name="product" th:object="${product}">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary" style="height: 98%;">
+                        <div class="card-header">
+                            <h3 class="card-title">Form Edit</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="name">Tên Sản Phẩm</label>
+                                <input type="text" id="name" name="name" class="form-control" th:field="*{name}">
+                                <input type="hidden" th:field="*{id}">
+                            </div>
+                            <div class="form-group">
+                                <label for="manufacturer">Nhà Sản Xuất</label>
+                                <input type="text" id="manufacturer" class="form-control" name="manufacturer" th:field="*{manufacturer}">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Thông Tin Chi Tiết Sản Phẩm</label>
+                                <textarea id="description" class="form-control" rows="4"  style="height: 126px;"  name="description" th:field="*{description}"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="catalog">Danh Mục</label>
+                                <select class="form-control custom-select" name="catalog" id="catalog" th:field="*{catalog}">
+                                    <option  th:each="catalog :${catalogs}" th:value="${catalog.id}" th:text="${catalog.name}">Select Catalog</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-secondary" style="height:98%;">
+                        <div class="card-header">
+                            <h3 class="card-title">Price-amount</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="import_price">Giá Nhập Vào</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">VND</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="import_price" id="import_price" th:field="*{import_price}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sale_price">Giá Bán Ra</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">VND</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="sale_price" id="sale_price" th:field="*{sale_price}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="number_import">Số Lượng Nhập</label>
+                                <input type="number" id="number_import" class="form-control" name="number_import" th:field="*{number_import}">
+                            </div>
+                            <div class="form-group">
+                                <label for="photo" style="margin-top: 19px">Ảnh Sản </label><br>
+                                <div >
+                                    <input style="float: left;color: blue; margin-top: 5px;border: 1px solid #ced4da;border-radius: 4px;width: 100%;" type="file" id="photo" name="photo" th:field="*{image}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-12">
+                <a href="/product" class="btn btn-secondary" style="float: left">Trở Lại</a>
+                <button type="button" class="btn btn-secondary" style="float: left; background-color: #0c84ff"   th:onclick="|window.location.href='/product'|">Danh Sách</button>
+                <input type="submit" value="Sửa Lại" class="btn btn-success float-right">
+            </div>
+        </div>
+    </form>
+    <!-- /.content -->
+</div>
+
+</html>

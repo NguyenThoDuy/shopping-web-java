@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{web/main-user :: main-fragment(
+~{:: #main-content}) }">>
+<!-- Content Wrapper. Contains page content -->
+<div class="text-center" id="main-content">
+    <!-- Content Header (Page header) -->
+        <div th:if="${cart.getOrderLines().size() > 0}">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 style="float: left">Chi Tiết Giỏ Hàng</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active">cart</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <section class="content" >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Main content -->
+                            <div class="invoice p-3 mb-3" >
+
+                                <div class="row">
+                                    <div class="col-12 table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Hình Ảnh</th>
+                                                <th>Tên Sản Phẩm</th>
+                                                <th>Đơn Giá</th>
+                                                <th>Số Lượng</th>
+                                                <th>Tổng Tiền</th>
+                                                <th>action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody th:each="orderLine, iStat:${cart.orderLines}">
+                                            <tr>
+                                                <td th:text="${iStat.index+1}">1</td>
+                                                <td>
+                                                        <a th:href="@{/productdetail/{id} (id=${orderLine.product.id})}" >
+                                                            <img style="width: 100px;" th:src="@{'/photos/' + ${orderLine.product.image}}" alt="product image">
+                                                        </a>
+
+                                                </td>
+                                                <td th:text="${orderLine.product.name}">El snort testosterone trophy driving gloves handsome</td>
+                                                <td th:text="${#numbers.formatInteger(orderLine.product.sale_price, 3, 'POINT')} + ' đ'">$64.50</td>
+                                                <td>
+                                                    <div id="div_spa">
+                                                        <a  style=" padding-bottom: 0px;   margin-bottom: 7px; margin-right: 9px; color: blueviolet;"
+                                                            th:onclick="|window.location.href='/cart/removeCount/${orderLine.product.id}'|">
+                                                            <i class="far fa-minus-square"></i>
+                                                        </a>
+                                                        <span id="sl_sp" th:text="${orderLine.count}"></span>
+                                                        <a style=" padding-bottom: 0px;   margin-bottom: 7px; margin-left: 9px; color: blueviolet;"
+                                                           th:onclick="|window.location.href='/cart/addCount/${orderLine.product.id}'|">
+                                                            <i class="far fa-plus-square"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td th:text="${#numbers.formatInteger(orderLine.product.sale_price * orderLine.count, 3, 'POINT')}+ ' đ'">$64.50</td>
+                                                <td>
+                                                    <a class="btn btn-danger btn-sm" href="#" th:onclick="|window.location.href='/cart/remove/${orderLine.product.id}'|">
+                                                        <input type="hidden" th:value="${orderLine.product.id}" name="id"/>
+                                                        <i class="fas fa-trash">
+                                                        </i>
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <div class="row">
+                                    <!-- accepted payments column -->
+                                    <div class="col-6">
+                                        <p class="lead">Phương Thức Thanh Toán:</p>
+                                        <div style="display: flex"  >
+                                            <div style=" margin-left: 50px; " class="icheck-primary d-inline">
+                                                <input type="checkbox" style="width: 24px; height: 20px;" th:default="true"> &nbsp;&nbsp;Thanh Toán Khi Nhận Hàng.
+                                            </div>
+                                            <div style="margin-left: 70px;">
+                                                Chuyển Khoản Qua: &nbsp;&nbsp;
+                                                <a href="/cart/error"> <img src="../../dist/img/credit/visa.png" alt="Visa"></a>
+                                                <a href="/cart/error"> <img src="../../dist/img/credit/mastercard.png" alt="Mastercard"></a>
+                                            </div>
+                                        </div>
+
+                                        <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
+                                            plugg
+                                            dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                                        </p>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-6">
+                                        <p class="lead" th:text=" 'Amount Due &nbsp;&nbsp;' + ${#dates.format(date, 'dd-MM-yyyy')}"> </p>
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody><tr>
+                                                    <th style="width:50%">Tổng tiền:</th>
+                                                    <td th:text="${#numbers.formatInteger(cart.rawTotal, 3, 'POINT')}+ ' đ'">$250.30</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Triết Khấu:</th>
+                                                    <td th:text="${#numbers.formatInteger(-cart.discount, 3, 'POINT')}+ ' đ'">$5.80</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>VAT (10.0%)</th>
+                                                    <td th:text="${#numbers.formatInteger(cart.vatTax, 3, 'POINT')}+ ' đ'">$10.34</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Thành Tiền:</th>
+                                                    <td th:text="${#numbers.formatInteger(cart.total, 3, 'POINT')}+ ' đ'">$265.24</td>
+                                                </tr>
+                                                </tbody></table>
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <!-- this row will not appear when printing -->
+                                <div class="row no-print">
+                                    <div class="col-12">
+                                        <!--                                    in hao don-->
+                                        <!--                                    <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>-->
+                                        <div th:onclick="|window.location.href='/cart/payment'|">
+                                            <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Xác Nhận Đơn Hàng
+                                            </button>
+                                        </div>
+                                        <div th:onclick="|window.location.href='/cart/remove'|">
+                                            <button  type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                                <i class="fas fa-ban"></i> Xoá Giỏ Hàng
+                                            </button>
+                                        </div>
+                                        <div th:onclick="|window.location.href='/'|"  style="float:left;">
+                                            <button  type="button" class="btn btn-primary float-right">
+                                                <i class="fas fa-toolbox"></i> Tiếp Tục Mua Sắm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.invoice -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+        </div>
+
+       <div th:if="${cart.getOrderLines().size() == 0}">
+           <section class="content-header">
+               <div class="container-fluid">
+                   <div class="row mb-2">
+                       <div class="col-sm-6">
+                           <h1>Cart is empty</h1>
+                       </div>
+                       <div class="col-sm-6">
+                           <ol class="breadcrumb float-sm-right">
+                               <li class="breadcrumb-item"><a href="/">Home</a></li>
+                               <li class="breadcrumb-item active">cart</li>
+                           </ol>
+                       </div>
+                   </div>
+               </div><!-- /.container-fluid -->
+           </section>
+
+
+           <!-- Main content -->
+           <section class="content" style="margin-right: 150px;">
+               <div class="error-page">
+                   <h2 class="headline text-warning"> <i class="fas fa-shopping-cart"></i></h2>
+
+                   <div class="error-content">
+                       <h3><i style="color: darkorchid;" class="fas fa-exclamation-triangle text-warning"></i> Giỏ Hàng Trống.</h3>
+
+                       <p>
+                            Bạn chưa thêm mặt hàng nào vào giỏ hàng của mình.
+                           Vui lòng trở lại trang chủ và &nbsp;&nbsp;<a href="/"> <big><i>tiếp tục mua sắm</i></big> </a>&nbsp;&nbsp; những mặt hàng bạn yêu thích.<br>
+                           XIN CÁM ƠN!
+                       </p>
+
+                       <form class="search-form">
+                           <div class="input-group">
+                               <input type="text" name="search" class="form-control" placeholder="Search">
+
+                               <div class="input-group-append">
+                                   <button type="submit" name="submit" class="btn btn-warning"><i class="fas fa-search"></i>
+                                   </button>
+                               </div>
+                           </div>
+                           <!-- /.input-group -->
+                       </form>
+                   </div>
+                   <!-- /.error-content -->
+               </div>
+               <!-- /.error-page -->
+           </section>
+       </div>
+        <!-- /.content -->
+</div>
+
+</html>

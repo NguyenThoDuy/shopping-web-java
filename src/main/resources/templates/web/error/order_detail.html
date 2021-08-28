@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 500px; margin: auto">
+    <div style="background-color: #0c84ff; color: white; width: 390px"> Order Details</div>
+    <div style="height: 250px">
+        <p>Code orders:</p>
+        <p>Send To:</p>
+        <p>Phone:</p>
+        <p>Email:</p>
+        <p>Address:</p>
+    </div>
+    <div >
+        <table style="width:100%">
+            <thead>
+               <tr>
+                   <th>#</th>
+                   <th>Name</th>
+                   <th>Quantity</th>
+                   <th>Price</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr  th:each="orderLine, iStat:${cart.orderLines}">
+                   <td th:text="${iStat.index+1}">1</td>
+                   <td  th:text="${orderLine.product.name}">may quay</td>
+                   <td  th:text="${orderLine.count}">2</td>
+                   <td  th:text="${#numbers.formatInteger(orderLine.product.sale_price, 3, 'POINT')} + ' đ'">10000</td>
+               </tr>
+            </tbody>
+        </table>
+        <hr style="width: 403px">
+        <span th:text="'Total Price:' + ${#numbers.formatInteger(cart.total, 3, 'POINT')}+ ' đ'"></span>
+    </div>
+</div>
+
+</body>
+</html>

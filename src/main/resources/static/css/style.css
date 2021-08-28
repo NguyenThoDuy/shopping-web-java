@@ -1,0 +1,15 @@
+
+.card-catalog{
+    display: flex;
+}
+.search-catalog{
+    margin-left: auto;
+}
+
+.form-group label{
+    float: left;
+}
+
+
+
+

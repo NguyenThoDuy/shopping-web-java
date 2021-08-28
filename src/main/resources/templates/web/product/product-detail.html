@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{web/main-user:: main-fragment(~{:: #main-content}) }">
+<!-- Content Wrapper. Contains page content -->
+<div class="text-center" id="main-content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i>&nbsp;Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Product</a></li>
+                        <li class="breadcrumb-item active">Detail</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card card-solid">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+                        <div class="col-12">
+                            <img th:src="@{'/photos/' + ${product.image}}" class="product-image" alt="Product Image">
+                        </div>
+                        <!--                        &lt;!&ndash;                        //bo sung them cac anh khac&ndash;&gt;-->
+                        <!--                        <div class="col-12 product-image-thumbs">-->
+                        <!--                            <div class="product-image-thumb active"><img src="#" alt="Product Image"></div>-->
+                        <!--                        </div>-->
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <h3 class="my-3" th:text="${product.name}">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+                        <hr>
+                        <h4>Thông Tin Sản Phẩm</h4><br>
+                        <h5 th:text="'Nhà Sản xuất: &nbsp;&nbsp'+ ${product.manufacturer}"></h5><br>
+
+                        <div style="width: 315px; margin: auto">
+                            <p th:text="${product.description}"></p>
+                        </div>
+                        <hr>
+                        <div class="bg-gray py-2 px-3 mt-4">
+                            <h2 class="mb-0"
+                                th:text="'$ &nbsp;&nbsp;&nbsp;'+ ${#numbers.formatInteger(product.sale_price,3,'POINT')} + ' đ'">
+                                $80.00
+                            </h2>
+
+                            <h4 class="mt-0">
+                            </h4>
+                        </div>
+
+                        <form class="mt-4" style="display: flex" th:action="@{/cart/addbycount}" method="post">
+                            <div class="btn btn-default btn-lg btn-flat"
+                                 style="margin-right: 54px; background-color: cornsilk; border-radius: 2px;" th:if="${product.number_import > product.number_out}">
+                                <span>Còn Trong Kho: </span>
+                                <span th:text="${product.number_import} - ${product.number_out}"></span>
+                            </div>
+                            <div class="btn btn-default btn-lg btn-flat"
+                                 style="margin-right: 54px; background-color: cornsilk; border-radius: 2px;" th:if="${product.number_import == product.number_out}">
+                                <span>Còn Trong Kho: </span>
+                                <span th:text="${product.number_import} - ${product.number_out}"></span>
+                            </div>
+                            <div th:if="${product.number_import > product.number_out}">
+                                <div class="btn btn-default btn-lg btn-flat" >
+                                    <span>Số Lượng: </span>
+                                    <span class="span-count">
+                                   <input type="number" style="width: 50px;height: 30px;" value="1" id="count" name="count">
+                                   <input type="hidden" th:field="${product.id}">
+                                </span>
+                                </div>
+
+                                <button style="height: 48px; width: 169px; font-size: 19px;margin-top: 3px" type="submit" class="btn btn-sm btn-primary"> <i class="fas fa-cart-plus fa-lg mr-2"></i> Add to Card</button>
+                            </div>
+
+                        </form>
+
+                        <div class="mt-4 product-share">
+                            <span style=" margin-right: 20px; font-size: 20px;">Liên Hệ:</span>
+                            <a href="https://www.facebook.com/lilti.dy/" class="text-gray">
+                                <i class="fab fa-facebook-square fa-2x"></i>
+                            </a>
+                            <a href="#" class="text-gray">
+                                <i class="fab fa-twitter-square fa-2x"></i>
+                            </a>
+                            <a href="#" class="text-gray">
+                                <i class="fas fa-envelope-square fa-2x"></i>
+                            </a>
+                            <a href="#" class="text-gray">
+                                <i class="fas fa-rss-square fa-2x"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+</html>

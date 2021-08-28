@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/main-control :: main-fragment(
+~{:: #main-content}) }">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper text-center" id="main-content">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark" style="padding-left: 200px;">CATALOG</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a th:href="@{/templates/admin}">Home</a></li>
+                        <li class="breadcrumb-item active">catalog</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <section class="content table-catalog">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6" style="margin-left: 122px;">
+                    <div class="card">
+                        <div class="card-header card-catalog">
+                            <div th:class="add-catalog">
+                                <form th:action="@{/catalog/add}" method="post" th:object="${catalog}">
+                                    <input class="btn btn-sm btn-primary"type="submit" value="Add" style="float: left; height: 38px; border-radius: 5px; width: 60px">
+                                    <input th:field="*{name}" class="form-control" id="exampleInputEmail1" placeholder=" Add new_catalog..." style="float: left; width: 190px">
+                                </form>
+                            </div>
+                            <div th:class="search-catalog">
+                                <form th:action="@{/catalog/search}" method="get" th:object="${search}">
+                                    <input class="form-control" id="exampleInputEmail" th:placeholder="keyword....." name="keyword" th:field="*{keyword}" style="float: left; width: 190px">
+                                    <input type="submit" value="Search" class="btn btn-sm btn-primary" style="float: right; height: 38px; border-radius: 5px">
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="catalog, iter:${catalogs}">
+                                    <th scope="row" th:text="${iter.index + 1}">1</th>
+                                    <td th:text="${catalog.name}">Mark</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="#" th:href="@{/catalog/update/{id} (id=${catalog.id})}">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Edit
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#" th:href="@{/catalog/delete/{id} (id=${catalog.id})}" style="margin-left: 2px">
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <ul class="pagination pagination-sm m-0 float-right">
+                                <li class="page-item"><a class="page-link" href="#">«</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+</div>
+
+</html>

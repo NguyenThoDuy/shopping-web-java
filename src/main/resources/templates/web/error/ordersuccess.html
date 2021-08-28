@@ -1,0 +1,55 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{web/main-user :: main-fragment(
+~{:: #main-content}) }">
+<!-- Content Wrapper. Contains page content -->
+<div class="text-center" id="main-content">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Order success</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">Payment</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+    <!-- Main content -->
+    <section class="content" style="margin-right: 300px;">
+        <div class="error-page">
+            <h2 class="headline text-warning"> <i style="color: green" class="far fa-check-circle"></i></h2>
+
+            <div class="error-content">
+                <h3><i class="far fa-check-circle"></i> Đặt Hàng Thành Công</h3>
+
+                <p>
+                    Đơn hàng có mã &nbsp;&nbsp;<a style="color: blue" th:text="${code}"></a>&nbsp;&nbsp;
+                    đã được chúng tôi xác nhận. Bạn có thể xem lại mã đơn đặt hàng trong email hoặc kiểm tra lịch sử đơn đặt hàng  <a href="/cart/search">tại đây.</a> <br>
+                    hoặc <a href="/">tiếp tục mua sắm.</a><br>
+                    XIN CÁM ƠN!
+                </p>
+
+                <form class="search-form">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
+
+                        <div class="input-group-append">
+                            <button  name="submit" class="btn btn-warning"><i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.input-group -->
+                </form>
+            </div>
+            <!-- /.error-content -->
+        </div>
+        <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+</div>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head id="header">
+  <meta >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Đăng Ký</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition register-page">
+<div class="register-box">
+  <div class="register-logo">
+    <a href="/"><img style="width: 50px; height: 50px;margin-bottom: 10px" src="../../dist/img/logoshop.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+      DUY_SHOP</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Cập Nhật Tài Khoản</p>
+      <p class="login-box-msg text-danger">[[${error}]]</p>
+
+      <form th:action="@{/auth/update}" method="post" id="register-form" th:object="${user}">
+        <input type="hidden" name="id" th:field="*{id}">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Họ tên" id="fullname" name="username" th:field="*{username}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Mật khẩu" id="password" name="password" th:field="*{password}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" id="repassword" name="repassword">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" id="email" name="email" th:field="*{email}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Số điện thoại"
+                 data-inputmask="'mask': ['999-999-9999', '+099 99 99 999']" data-mask th:field="*{phone}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-phone"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Cập Nhật</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i>
+          Sign up using Facebook
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i>
+          Sign up using Google+
+        </a>
+      </div>
+
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+<!-- jquery-validation -->
+<script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="/plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- Select2 -->
+<script src="/plugins/select2/js/select2.full.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
+<script src="/plugins/moment/moment.min.js"></script>
+<script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<!-- date-range-picker -->
+<script src="/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+
+    // validation
+    $.validator.setDefaults({
+      // submitHandler: function () {
+      //     // alert( "Form successful submitted!" );
+      //     $.ajax({
+      //
+      //     })
+      // }
+    });
+    $('#register-form').validate({
+      rules: {
+        username: {
+          required: true,
+          minlength: 3
+        },
+        fullname: {
+          required: true,
+          minlength: 3
+        },
+        email: {
+          required: true,
+          email: true,
+        },
+        password: {
+          required: true,
+          minlength: 6
+        },
+        repassword: {
+          required: true,
+        },
+        mobile: {
+          required: true,
+        },
+        terms: {
+          required: true
+        },
+      },
+      messages: {
+        username: {
+          required: "Chưa nhập tên đăng nhập",
+          minlength: "Tên đăng nhập ít nhất 4 ký tự"
+        },
+        fullname: {
+          required: "Chưa nhập họ tên",
+          minlength: "Họ tên ít nhất 4 ký tự"
+        },
+        email: {
+          required: "Chưa nhập email",
+          email: "Email không đúng định dạng"
+        },
+        password: {
+          required: "Chưa nhập mật khẩu",
+          minlength: "Mật khẩu ít nhất 6 ký tự"
+        },
+        repassword: {
+          required: "Chưa xác nhận mật khẩu"
+        },
+        mobile: {
+          required: "Chưa nhập số điện thoại",
+        },
+        terms: "Please accept our terms"
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        // console.log("error: " + JSON.stringify(error))
+        // console.log("element: " + JSON.stringify(element))
+        error.addClass('invalid-feedback');
+        element.closest('.input-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+  })
+</script>
+</body>
+</html>

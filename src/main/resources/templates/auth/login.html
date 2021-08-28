@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Đăng nhập</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="/"><img style="width: 50px; height: 50px;margin-bottom: 10px" src="../../dist/img/logoshop.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+      DUY_SHOP</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Đăng nhập</p>
+      <p class="text-danger text-center" th:if="${error == 'true'}">Đăng nhập không thành công</p>
+      <form th:action="@{/auth/login}" method="post"  id="login-form">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Email đăng nhập" name="username">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Mật khẩu" name="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fas fa-sign-in-alt"></i>
+              Đăng nhập
+            </button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center mb-3">
+        <p>- Hoặc -</p>
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i> Đăng nhập bằng Facebook
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Đăng nhập bằng Google+
+        </a>
+      </div>
+      <!-- /.social-auth-links -->
+
+      <!--            <p class="mb-1">-->
+      <!--                <a href="forgot-password.html">I forgot my password</a>-->
+      <!--            </p>-->
+      <p class="mb-0">
+        <a th:href="@{/auth/sigup}" class="text-center">Tạo mới tài khoản</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- jquery-validation -->
+<script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="/plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+<script>
+  $(function () {
+    // validation
+    $('#login-form').validate({
+      rules: {
+        username: {
+          required: true,
+          minlength: 3
+        },
+        password: {
+          required: true,
+          minlength: 6
+        },
+        terms: {
+          required: true
+        },
+      },
+      messages: {
+        username: {
+          required: "Chưa nhập tên đăng nhập",
+          minlength: "Tên đăng nhập ít nhất 4 ký tự"
+        },
+        password: {
+          required: "Chưa nhập mật khẩu",
+          minlength: "Mật khẩu ít nhất 6 ký tự"
+        },
+        terms: "Please accept our terms"
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        console.log("error: " + JSON.stringify(error))
+        error.addClass('invalid-feedback');
+        element.closest('.input-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+  })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{web/index:: main-fragment(
+~{:: #main-content}) }">
+<!-- Content Wrapper. Contains page content -->
+<div class="text-center" id="main-content">
+    <div class="container mt-3" >
+        <div class="row">
+            <div class="col-lg-3 col-md-6 offset-md-0 offset-sm-1 col-sm-10 offset-sm-1 my-lg-0 my-2 product-img"
+                 th:each="product : ${page.getContent()}">
+                <div class="card" style="height: 350px">
+                    <a th:href="@{/productdetail/{id} (id=${product.id})}" class="">
+                        <img style="height: 210px;" class="card-img-top" th:src="@{'/photos/' + ${product.image}}">
+                    </a>
+                    <div class="card-body">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <div class="d-flex flex-column" style="width: 90%; margin: auto">
+                                <div class="h6 font-weight-bold">
+                                    <a style="color: #0c84ff; margin-left: 2px"
+                                       th:onclick="|window.location.href='/productdetail/${product.id}'|"
+                                       th:text="${product.name}"></a>
+                                </div>
+                                <div class="text-muted"
+                                     th:text="${#numbers.formatInteger(product.sale_price,3,'POINT')} + ' đ'">$140
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-right">
+                            <div class="btn-group btn-group-sm" style="float: left;">
+                                <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="btn btn-danger" th:text=" ' '+${product.view}"
+                                   style="background-color: dimgrey;"></i></a>
+                            </div>
+                            <a href="#" class="btn btn-sm bg-teal">
+                                <i class="far fa-heart"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-primary addtocart"
+                               th:onclick="|window.location.href='/cart/add/${product.id}'|">
+                                <i class="fas fa-cart-plus btn-add-to-cart"></i> Add to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right" th:object="${page}">
+                <li class="page-item"><a class="page-link" th:if="${previous}" th:href="@{/(page=${previousPage},size=8)}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" th:unless="${previous}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" th:if="${(currentPage+1) != 1}" th:href="@{/(page=0,size=8)}">1</a></li>
+                <li class="page-item"><a class="page-link" th:unless="${(currentPage+1) != 1}">1</a></li>
+                <li class="page-item"><a class="page-link" th:if="${(currentPage + 1) > 2}">...</a></li>
+                <li class="page-item">
+                    <a
+                            class="page-link"
+                            th:if="${(currentPage + 1) > 1 && (currentPage + 1) < page.getTotalPages()}">
+                        [[${currentPage + 1}]]
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" th:if="${(currentPage + 1) < (page.getTotalPages() - 1)}">...</a></li>
+                <li class="page-item" th:if="${page.getTotalPages() > 1 && (currentPage+1) != page.getTotalPages()}"><a class="page-link" th:href="@{/(page=${page.getTotalPages() - 1},size=8)}">[[${page.getTotalPages()}]]</a></li>
+                <li class="page-item" th:if="${page.getTotalPages() > 1 && (currentPage+1) == page.getTotalPages()}"><a class="page-link">[[${page.getTotalPages()}]]</a></li>
+                <li class="page-item"><a class="page-link" th:if="${next}" th:href="@{/(page=${nextPage},size=8)}">&raquo;</a></li>
+                <li class="page-item"><a class="page-link" th:unless="${next}">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</html>

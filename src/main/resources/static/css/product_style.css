@@ -1,0 +1,68 @@
+.product-img {
+    -webkit-transition: all 0.5s ease;
+}
+
+.product-img:hover {
+    -webkit-transform: scale(0.95,0.95);
+    cursor: pointer;
+}
+
+/*slide image*/
+body {
+    background-color: #7B1FA2
+}
+
+.container {
+    margin-top: 100px;
+    margin-bottom: 100px
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 380px
+}
+
+#custCarousel .carousel-indicators {
+    position: static;
+    margin-top: 20px
+}
+
+#custCarousel .carousel-indicators>li {
+    width: 100px
+}
+
+#custCarousel .carousel-indicators li img {
+    display: block;
+    opacity: 0.5
+}
+
+#custCarousel .carousel-indicators li.active img {
+    opacity: 1
+}
+
+#custCarousel .carousel-indicators li:hover img {
+    opacity: 0.75
+}
+
+.carousel-item img {
+    width: 99%
+}
+
+/*style acount*/
+.p-3 .acount li{
+    -webkit-transition: all 0.5s ease;
+}
+.p-3 .acount li:hover{
+    -webkit-transform: scale(0.95,0.95);
+    cursor: pointer;
+    color: blue;
+}
+
+.webkit{
+    -webkit-transition: all 0.5s ease;
+}
+.webkit:hover{
+    -webkit-transform: scale(0.95,0.95);
+    cursor: pointer;
+    color: blue;
+}
