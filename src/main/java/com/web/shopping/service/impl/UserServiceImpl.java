@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
     private final  RoleRepo roleRepo;
     private final HttpSession session;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
     long millis = System.currentTimeMillis();
      public java.sql.Date date=new java.sql.Date(millis);
 
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
             List<Role> roles = new ArrayList<>();
             roles.add(role);
             User person = new User();
-            String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
                 person.setUsername(user.getUsername());
                 person.setPassword(encodedPassword);
                 person.setEmail(user.getEmail());
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public boolean update(UserRequest userRequest) {
         Boolean check = false;
         User userUpdate = null;
-        String encodedPassword = bCryptPasswordEncoder.encode(userRequest.getPassword());
+        String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
         Optional<User> userCreated = userRepo.findById(userRequest.getId());
         try {
             if(userCreated != null){
