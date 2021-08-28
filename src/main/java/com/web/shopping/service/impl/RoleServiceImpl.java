@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -23,5 +25,11 @@ public class RoleServiceImpl implements RoleService {
         role.setParent(request.getParent());
        Role role1 =  roleRepo.save(role);
         System.out.println(role1);
+    }
+
+    @Override
+    public List<Role> getAll() {
+        List<Role> roles = roleRepo.findAll();
+        return roles;
     }
 }

@@ -1,9 +1,6 @@
 package com.web.shopping.service.impl;
 
-import com.web.shopping.Repository.OrderDetailRepo;
-import com.web.shopping.Repository.OrderRepo;
-import com.web.shopping.Repository.ProductRepo;
-import com.web.shopping.Repository.UserRepo;
+import com.web.shopping.Repository.*;
 import com.web.shopping.dto.Cart;
 import com.web.shopping.dto.OrderLine;
 import com.web.shopping.model.entity.Order;
@@ -32,6 +29,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDetailRepo orderDetailRepo;
     private final UserRepo userRepo;
     private final ProductRepo productRepo;
+    private final CatalogRepo catalogRepo;
     long millis = System.currentTimeMillis();
     public java.sql.Date date=new java.sql.Date(millis);
 
@@ -73,28 +71,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponse findByOrder(long id) {
-        OrderResponse orderResponse = null;
-        List<OrderDetail> orderDetails = showOrderDetail(id);
-        Order order = orderRepo.getById(id);
-        List<OrderLine> orderLines = new ArrayList<>();
+    public List<Product> findByOrder(long id) {
+       List<Product> products = null;
+       String ids = String.valueOf(id);
         try {
-            for (OrderDetail orderDetail:orderDetails) {
-                OrderLine orderLine = new OrderLine();
-                orderLine.setProduct(orderDetail.getProduct());
-                orderLine.setCount(orderDetail.getQty());
-                orderLines.add(orderLine);
-            }
-            orderResponse.setOrderLines(orderLines);
-            orderResponse.setName(order.getUsername());
-            orderResponse.setEmail(order.getEmail());
-            orderResponse.setPhone(order.getPhone());
-            orderResponse.setAddress(order.getAddress());
+           products = catalogRepo.findProductsByCatalogId(ids);
         }catch (Exception ex){
             log.info(ex.getMessage());
         }
 
-        return orderResponse;
+        return products;
     }
 
    public List<OrderDetail> showOrderDetail(Long id) {

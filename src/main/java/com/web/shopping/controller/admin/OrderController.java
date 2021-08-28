@@ -2,6 +2,7 @@ package com.web.shopping.controller.admin;
 
 import com.web.shopping.model.entity.Order;
 import com.web.shopping.model.entity.OrderDetail;
+import com.web.shopping.model.entity.Product;
 import com.web.shopping.model.request.PaymentRequest;
 import com.web.shopping.model.response.OrderResponse;
 import com.web.shopping.service.OrderService;
@@ -29,9 +30,8 @@ public class OrderController {
     }
 
     @GetMapping("search/{id}")
-    public OrderResponse show(@PathVariable Long id){
-        OrderResponse orderDetail = orderService.findByOrder(id);
-
-        return orderDetail;
+    public List<Product> show(@PathVariable Long id){
+        List<Product> products = orderService.findByOrder(id);
+        return products;
     }
 }
