@@ -14,7 +14,7 @@
 	<name>shopping</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -97,10 +97,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<source>11</source> 
-					<target>11</target> 
-					<testSource>11</testSource> 
-					<testTarget>11</testTarget>
+					<source>1.8</source> 
+					<target>1.8</target> 
+					<testSource>1.8</testSource> 
+					<testTarget>1.8</testTarget>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
