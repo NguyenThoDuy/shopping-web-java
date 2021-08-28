@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -24,10 +25,10 @@ public class FileService {
         }
         String fileName = file.getOriginalFilename();
         try {
-            var is = file.getInputStream();
+            InputStream is = file.getInputStream();
             Files.copy(is, Paths.get(path + fileName), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            var msg = String.format("Failed to store file %s", fileName);
+            String msg = String.format("Failed to store file %s", fileName);
             throw new StorageException(msg, e);
         }
         return fileName;

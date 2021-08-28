@@ -26,7 +26,7 @@ public class CartServiceImpl implements CartService {
     public void addToCart(Long id,  HttpSession session) {
         HashMap<Long, OrderLine> cart;
 
-        var rawCart = session.getAttribute("CART");
+        Object rawCart = session.getAttribute("CART");
 
         if (rawCart instanceof HashMap) {
             cart = (HashMap<Long, OrderLine>) rawCart;
@@ -64,7 +64,7 @@ public class CartServiceImpl implements CartService {
     public int countItemInCart(HttpSession session) {
         HashMap<Long, OrderLine> cart;
 
-        var rawCart = session.getAttribute("CART");
+        Object rawCart = session.getAttribute("CART");
 
         if (rawCart instanceof HashMap) {
             cart = (HashMap<Long, OrderLine>) rawCart;
@@ -77,7 +77,7 @@ public class CartServiceImpl implements CartService {
     public Cart getCart(HttpSession session) {
         HashMap<Long, OrderLine> cart;
 
-        var rawCart = session.getAttribute("CART");
+        Object rawCart = session.getAttribute("CART");
 
         if (rawCart instanceof HashMap) {
             cart = (HashMap<Long, OrderLine>) rawCart;
