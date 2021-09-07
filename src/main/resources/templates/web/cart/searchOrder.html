@@ -33,9 +33,8 @@
             </form>
             <!-- /.error-content -->
         </div><!-- /.error-page -->
-        <span th:if="${order} == null" th:text="${error}"></span>
         <!--        <span  th:text=" ${#dates.format(${order.created_at}, 'dd-MM-yyyy')}" type="text"  class="form-control" ></span>-->
-        <div class="btn-group mb-2" style="width: 98%" th:switch="${order.status}">
+        <div th:if="${order} != null" class="btn-group mb-2" style="width: 98%" th:switch="${order.status}">
             <div th:case="'0'"  class="btn-group mb-2" style="width: 100%">
                 <a   class="btn btn-info" style="background-color: red"> <i style="color:blue;" class="fas fa-truck-moving"></i>&nbsp;&nbsp;&nbsp;Đang Chờ Xác Nhận </a>
                 <a  class="btn btn-info"> Đã Xác Nhận Đơn Hàng</a>

@@ -55,7 +55,7 @@ to get the desired effect
         </div><!-- /.container-fluid -->
     </section>
     <!-- Main content -->
-    <section class="content" style="width: 60%; margin: auto">
+    <section class="content" style="width: 80%; margin: auto">
         <div th:if="${order} != null" style="display:flex">
 
             <div class="col-md-6">
@@ -161,7 +161,7 @@ to get the desired effect
         </div>
     </section>
     <!-- /.content -->
-    <div  role="form" style=" width: 58.5%;margin: auto; background-color: gold; border-radius: 3px;">
+    <div  role="form" style=" width: 38.5%;margin-left: 193px; background-color: gold; border-radius: 3px;">
         <form method="post" th:action="@{/admin/order/handle/update}">
             <input type="hidden" th:field="*{order.id}">
             <div class="form-group">
