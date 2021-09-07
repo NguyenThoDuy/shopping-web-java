@@ -22,13 +22,13 @@ public class OrderDetail {
     @Column(name = "totalprice")
     private Double totalprice;
 
-    @JsonBackReference
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(cascade={CascadeType.PERSIST})
     @JoinColumn(name = "order_id")
     private Order order;
 

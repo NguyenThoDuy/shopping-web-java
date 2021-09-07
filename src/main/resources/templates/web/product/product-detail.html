@@ -58,14 +58,10 @@
 
                         <form class="mt-4" style="display: flex" th:action="@{/cart/addbycount}" method="post">
                             <div class="btn btn-default btn-lg btn-flat"
-                                 style="margin-right: 54px; background-color: cornsilk; border-radius: 2px;" th:if="${product.number_import > product.number_out}">
-                                <span>Còn Trong Kho: </span>
-                                <span th:text="${product.number_import} - ${product.number_out}"></span>
-                            </div>
-                            <div class="btn btn-default btn-lg btn-flat"
-                                 style="margin-right: 54px; background-color: cornsilk; border-radius: 2px;" th:if="${product.number_import == product.number_out}">
-                                <span>Còn Trong Kho: </span>
-                                <span th:text="${product.number_import} - ${product.number_out}"></span>
+                                 style="margin-right: 54px; background-color: cornsilk; border-radius: 2px;" >
+                                <span th:if="${product.number_import > product.number_out}">Còn Trong Kho: </span>
+                                <span th:if="${product.number_import > product.number_out}" th:text="${product.number_import} - ${product.number_out}"></span>
+                                <span th:if="${product.number_import == product.number_out}" >Tạm Hết Hàng</span>
                             </div>
                             <div th:if="${product.number_import > product.number_out}">
                                 <div class="btn btn-default btn-lg btn-flat" >
@@ -78,7 +74,6 @@
 
                                 <button style="height: 48px; width: 169px; font-size: 19px;margin-top: 3px" type="submit" class="btn btn-sm btn-primary"> <i class="fas fa-cart-plus fa-lg mr-2"></i> Add to Card</button>
                             </div>
-
                         </form>
 
                         <div class="mt-4 product-share">

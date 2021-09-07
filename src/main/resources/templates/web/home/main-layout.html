@@ -3,11 +3,36 @@
 ~{:: #main-content}) }">
 <!-- Content Wrapper. Contains page content -->
 <div class="text-center" id="main-content">
+
     <div class="container mt-3" >
-        <div class="row">
+        <div class="loc-product" style="display: flex" th:action="@{/}" method="get">
+            <div style="float: left; width: 80%"></div>
+            <div class="product__sort" style="display: flex">
+                <div class="header2 bg-success-gradiant">
+                    <div class="">
+                        <!-- Header 1 code -->
+                        <nav class="navbar navbar-expand-lg h2-nav"></button>
+                            <div class="collapse navbar-collapse hover-dropdown" id="header2">
+                                <ul class="navbar-nav" style="border: 1px solid;border-radius: 4px; height: 40px; background-color: #545b62;">
+                                    <li class="nav-item dropdown position-relative"> <a style="color: wheat;" class="nav-link dropdown-toggle"  id="h2-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Săp Xếp Theo</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="webkit"><a class="dropdown-item" th:href="@{/index/sort/{key} (key=1)}">Từ A đến Z </a></li>
+                                            <li class="webkit"><a class="dropdown-item" th:href="@{/index/sort/{key} (key=2)}">Từ Z đến A </a></li>
+                                            <li class="webkit"><a class="dropdown-item" th:href="@{/index/sort/{key} (key=3)}">Được Xem Nhiều</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </nav> <!-- End Header 1 code -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 13px">
             <div class="col-lg-3 col-md-6 offset-md-0 offset-sm-1 col-sm-10 offset-sm-1 my-lg-0 my-2 product-img"
                  th:each="product : ${page.getContent()}">
-                <div class="card" style="height: 350px">
+                <div class="card" style="height: 350px; border: 1px solid #78c225;">
                     <a th:href="@{/productdetail/{id} (id=${product.id})}" class="">
                         <img style="height: 210px;" class="card-img-top" th:src="@{'/photos/' + ${product.image}}">
                     </a>
@@ -32,12 +57,9 @@
                                 <a href="#" class="btn btn-danger" th:text=" ' '+${product.view}"
                                    style="background-color: dimgrey;"></i></a>
                             </div>
-                            <a href="#" class="btn btn-sm bg-teal">
-                                <i class="far fa-heart"></i>
-                            </a>
                             <a href="#" class="btn btn-sm btn-primary addtocart"
                                th:onclick="|window.location.href='/cart/add/${product.id}'|">
-                                <i class="fas fa-cart-plus btn-add-to-cart"></i> Add to Cart
+                                <i class="fas fa-cart-plus btn-add-to-cart"></i> &nbsp;&nbsp;Thêm Vào Giỏ Hàng
                             </a>
                         </div>
                     </div>

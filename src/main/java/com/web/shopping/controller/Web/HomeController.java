@@ -2,6 +2,7 @@ package com.web.shopping.controller.Web;
 
 import com.web.shopping.model.entity.Product;
 import com.web.shopping.model.entity.User;
+import com.web.shopping.model.request.SearchRequest;
 import com.web.shopping.service.CatalogService;
 import com.web.shopping.service.ProductService;
 import com.web.shopping.service.impl.CartServiceImpl;
@@ -11,15 +12,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -33,8 +34,7 @@ public class HomeController {
 
 
     @GetMapping("")
-    public ModelAndView list(
-            @PageableDefault(page = 0, size = 8)
+    public ModelAndView list(@PageableDefault(page = 0, size = 12)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "id", direction = Sort.Direction.DESC)
             }) Pageable pageable, HttpSession session) {
@@ -46,6 +46,7 @@ public class HomeController {
         mav.addObject("currentPage", page.get().getNumber());
         mav.addObject("previous", page.get().hasPrevious());
         mav.addObject("catalogs", catalogService.getAll());
+        mav.addObject("search", new SearchRequest());
         mav.addObject("user", user);
         mav.addObject("cartCount", cartService.countItemInCart(session));
         if (page.get().hasPrevious())
@@ -56,15 +57,7 @@ public class HomeController {
         }
         return mav;
     }
-
-    //    @GetMapping("")
-//    public ModelAndView home(HttpSession session){
-//        User user = (User) session.getAttribute("USER");
-//        ModelAndView mav = new ModelAndView("web/index");
-//        mav.addObject("catalogs", catalogService.getAll());
-//        mav.addObject("user", user);
-//        return mav;
-//    }
+    //product detail
     @GetMapping("productdetail/{id}")
     public ModelAndView showDetailProductControl(@Valid @PathVariable("id") long id, HttpSession session) {
         Product productById = productService.showById(id);
@@ -76,5 +69,76 @@ public class HomeController {
         mav.addObject("catalogs", catalogService.getAll());
         return mav;
     }
+
+    //search by keyword
+    @GetMapping("searchByKeyword")
+    public ModelAndView showByKyeword(@Param("request") String request, HttpSession session){
+        System.out.println(request);
+        ModelAndView mav = new ModelAndView("web/product/search");
+       List<Product> products =  productService.search(request);
+       mav.addObject("products", products);
+        User user = (User) session.getAttribute("USER");
+        mav.addObject("user", user);
+        mav.addObject("cartCount", cartService.countItemInCart(session));
+        mav.addObject("catalogs", catalogService.getAll());
+        return mav;
+    }
+
+    //filter
+    @GetMapping("index/filter")
+    public ModelAndView filter(@Param("catalog_id") Long catalog_id, @Param("price") String price, HttpSession session){
+        ModelAndView mav = new ModelAndView();
+       if(catalog_id != null && price == null){
+           List<Product> products = productService.findByCatalog(catalog_id);
+           mav.setViewName("web/findByKeyWord/index");
+           mav.addObject("products", products);
+           User user = (User) session.getAttribute("USER");
+           mav.addObject("user", user);
+           mav.addObject("cartCount", cartService.countItemInCart(session));
+           mav.addObject("catalogs", catalogService.getAll());
+       }else if(catalog_id == null && price != null){
+           List<Product> products = productService.filterPrice(price);
+           mav.setViewName("web/findByCatalog/index");
+           mav.addObject("products", products);
+           User user = (User) session.getAttribute("USER");
+           mav.addObject("user", user);
+           mav.addObject("cartCount", cartService.countItemInCart(session));
+           mav.addObject("catalogs", catalogService.getAll());
+       }else{
+           List<Product> products = productService.filterByPriceAndCatalog(catalog_id, price);
+           mav.setViewName("web/findByCatalog/index");
+           mav.addObject("products", products);
+           User user = (User) session.getAttribute("USER");
+           mav.addObject("user", user);
+           mav.addObject("cartCount", cartService.countItemInCart(session));
+           mav.addObject("catalogs", catalogService.getAll());
+       }
+        return mav;
+    }
+
+
+    //sorted
+    @GetMapping("index/sort/{key}")
+    public ModelAndView sort(@PathVariable int key, HttpSession session) {
+        User user = (User) session.getAttribute("USER");
+        ModelAndView mav = new ModelAndView("web/home/main-layout");
+        Optional<Page<Product>> page = productService.sort(key);
+        mav.addObject("page", page.get());
+        mav.addObject("currentPage", page.get().getNumber());
+        mav.addObject("previous", page.get().hasPrevious());
+        mav.addObject("catalogs", catalogService.getAll());
+        mav.addObject("search", new SearchRequest());
+        mav.addObject("user", user);
+        mav.addObject("cartCount", cartService.countItemInCart(session));
+        if (page.get().hasPrevious())
+            mav.addObject("previousPage", page.get().getNumber() - 1);
+        mav.addObject("next", page.get().hasNext());
+        if (page.get().hasNext()) {
+            mav.addObject("nextPage", page.get().getNumber() + 1);
+        }
+        return mav;
+    }
+
+
 }
 

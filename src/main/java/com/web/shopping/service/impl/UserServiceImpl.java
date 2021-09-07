@@ -2,6 +2,7 @@ package com.web.shopping.service.impl;
 
 import com.web.shopping.Repository.RoleRepo;
 import com.web.shopping.Repository.UserRepo;
+import com.web.shopping.model.entity.Product;
 import com.web.shopping.model.entity.Role;
 import com.web.shopping.model.entity.User;
 import com.web.shopping.model.request.UserRequest;
@@ -9,6 +10,8 @@ import com.web.shopping.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -105,5 +108,27 @@ public class UserServiceImpl implements UserService {
             check = false;
         }
         return check;
+    }
+
+    @Override
+    public List<User> getAll() {
+        List<User> users = userRepo.findAll();
+        return users;
+    }
+
+    @Override
+    public Optional<Page<User>> list(Pageable pageable) {
+        Page<User> page = null;
+        try {
+            page = userRepo.findAll(pageable);
+        } catch (Exception ex) {
+            log.error("get all car error: " + ex.getMessage());
+        }
+        return Optional.ofNullable(page);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepo.deleteById(id);
     }
 }

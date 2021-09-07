@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/main-control :: main-fragment(
+~{:: #main-content}) }">
+<!-- Content Wrapper. Contains page content -->
+<div class="text-center" id="main-content">
+
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>PRODUCT CONTROL</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin"><i class="fas fa-home"></i>&nbsp;Home</a></li>
+            <li class="breadcrumb-item"><a href="/product">Product</a></li>
+            <li class="breadcrumb-item active">control</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <div style="display: flex; " class="btn btn-primary btn-lg btn-flat">
+    <div class="btn btn-primary btn-lg btn-flat" style="display: flex" th:onclick="|window.location.href='/admin/user/add'|">
+      <i class="far fa-plus-square fa-lg mr-2" style="margin-top: 6px"></i>&nbsp;&nbsp;
+      Thêm Mới
+    </div>
+  </div>
+
+  <div class="card" th:if="${code} == null">
+    <div class="card-header">
+
+      <form div class="card-tools" th:action="@{/product/search}">
+        <div class="input-group input-group-sm" style="width: 150px;" >
+          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0" style="height: 866px;">
+      <table class="table table-striped projects">
+        <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Họ Tên</th>
+          <th>Email</th>
+          <th>Số Điện Thoại</th>
+          <th>Ngày Tạo</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, iter:${page.getContent()}"  style="margin-top: 1px">
+          <td th:text="${iter.index + 1}"></td>
+          <td th:text="${user.username}"></td>
+          <td th:text="${user.email}"></td>
+          <td th:text="${user.phone}"></td>
+          <td th:text="${user.create_at}"></td>
+          <td class="project-actions text-right" style="display: inline-block">
+            <a class="btn btn-danger btn-sm" href="#" th:href="@{/admin/user/delete/{id} (id=${user.id})}" style="margin-left: 2px">
+              <i class="fas fa-trash">
+              </i>
+              Delete
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right" th:object="${page}">
+          <li class="page-item"><a class="page-link" th:if="${previous}" th:href="@{/(page=${previousPage},size=8)}">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" th:unless="${previous}">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" th:if="${(currentPage+1) != 1}" th:href="@{/(page=0,size=8)}">1</a></li>
+          <li class="page-item"><a class="page-link" th:unless="${(currentPage+1) != 1}">1</a></li>
+          <li class="page-item"><a class="page-link" th:if="${(currentPage + 1) > 2}">...</a></li>
+          <li class="page-item">
+            <a
+                    class="page-link"
+                    th:if="${(currentPage + 1) > 1 && (currentPage + 1) < page.getTotalPages()}">
+              [[${currentPage + 1}]]
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" th:if="${(currentPage + 1) < (page.getTotalPages() - 1)}">...</a></li>
+          <li class="page-item" th:if="${page.getTotalPages() > 1 && (currentPage+1) != page.getTotalPages()}"><a class="page-link" th:href="@{/(page=${page.getTotalPages() - 1},size=8)}">[[${page.getTotalPages()}]]</a></li>
+          <li class="page-item" th:if="${page.getTotalPages() > 1 && (currentPage+1) == page.getTotalPages()}"><a class="page-link">[[${page.getTotalPages()}]]</a></li>
+          <li class="page-item"><a class="page-link" th:if="${next}" th:href="@{/(page=${nextPage},size=8)}">&raquo;</a></li>
+          <li class="page-item"><a class="page-link" th:unless="${next}">&raquo;</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <div class="card" th:if="${code}==1">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Tạo mới tài khoản</p>
+      <p class="login-box-msg text-danger">[[${error}]]</p>
+
+      <form style="width: 30%" th:action="@{/admin/user/add}" method="post" id="register-form" th:object="${user}">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Họ tên" id="fullname" name="username" th:field="*{username}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Mật khẩu" id="password" name="password" th:field="*{password}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" id="repassword" name="repassword">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" id="email" name="email" th:field="*{email}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Số điện thoại"
+                 data-inputmask="'mask': ['999-999-9999', '+099 99 99 999']" data-mask th:field="*{phone}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-phone"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <a href="/admin/user/index">
+            <i class="fas fa-arrow-circle-left"></i>
+          </a>&nbsp;&nbsp;&nbsp;
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Tạo Mới</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+</html>

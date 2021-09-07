@@ -47,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <!--             <-- Danh muc-->
                             <li class="dropdown-submenu dropdown-hover webkit" th:each="catalog:${catalogs}">
-                                <a th:onclick="|window.location.href='/findbycatalog/${catalog.id}'|" id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item " th:text="${catalog.name}">Máy Tính-Laptop</a>
+                                <a th:onclick="|window.location.href='/findByCatalog/${catalog.id}'|" id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item " th:text="${catalog.name}">Máy Tính-Laptop</a>
                             </li>
                             <li class="dropdown-divider"></li>
 
@@ -81,34 +81,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
 
                 </li>
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown webkit">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-header">15 Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
-                </li>
-                <!-- Notifications Dropdown Menu -->
                 <li class="nav-item webkit" th:if="${user == null}" >
                     <a  class="nav-link " data-widget="control-sidebar" data-slide="true" href="#"><i class="fas fa-user-circle"  style="color: white"></i>&nbsp;  Tài Khoản</a>
                 </li>
@@ -121,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.navbar -->
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="height:auto; background-color: beige">
+    <div class="content-wrapper" style="height:auto; background-color: white">
         <div class="parent-content" style="display: flex; margin: auto; width: 90%">
             <!-- Main content -->
             <div style="width: 70%; margin: auto" class="content" id="main-content" th:insert="${mainContent} ?: ~{}">

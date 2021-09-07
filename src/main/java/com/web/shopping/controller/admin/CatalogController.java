@@ -41,10 +41,14 @@ public class CatalogController {
 
     //edit
     @GetMapping("update/{id}")
-    public ModelAndView showById(@Valid @PathVariable long id) {
+    public ModelAndView showById( @PathVariable long id) {
+        List<Catalog> catalogs = catalogService.getAll();
+        ModelAndView mav = new ModelAndView("admin/catalog/index");
+        mav.addObject("catalogs", catalogs);
+        mav.addObject("catalog", new CatalogRequest());
+        mav.addObject("search", new SearchRequest());
         Catalog catalog = catalogService.showById(id);
-        ModelAndView mav = new ModelAndView("admin/catalog/edit");
-        mav.addObject("catalog", catalog);
+        mav.addObject("catalogById", catalog);
         return mav;
     }
 

@@ -1,0 +1,168 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{web/main-user:: main-fragment(
+~{:: #main-content}) }">
+<!-- Content Wrapper. Contains page content -->
+<div class="text-center" id="main-content">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Page Payment</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">Payment</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="error-page">
+            <form class="search-form" style="margin-left: 20px" method="post" th:action="@{/cart/search}">
+                <div class="input-group">
+                    <input type="text" name="id" class="form-control" placeholder="Nhập mã đơn hàng của bạn...">
+                    <div class="input-group-append">
+                        <button type="submit" name="submit" class="btn btn-warning"><i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.input-group -->
+            </form>
+            <!-- /.error-content -->
+        </div><!-- /.error-page -->
+        <span th:if="${order} == null" th:text="${error}"></span>
+        <!--        <span  th:text=" ${#dates.format(${order.created_at}, 'dd-MM-yyyy')}" type="text"  class="form-control" ></span>-->
+        <div class="btn-group mb-2" style="width: 98%" th:switch="${order.status}">
+            <div th:case="'0'"  class="btn-group mb-2" style="width: 100%">
+                <a   class="btn btn-info" style="background-color: red"> <i style="color:blue;" class="fas fa-truck-moving"></i>&nbsp;&nbsp;&nbsp;Đang Chờ Xác Nhận </a>
+                <a  class="btn btn-info"> Đã Xác Nhận Đơn Hàng</a>
+                <a  class="btn btn-info"> Đang Vận Chuyển </a>
+                <a  class="btn btn-info"> Đã Giao Hàng</a>
+            </div>
+            <div th:case="'1'"  class="btn-group mb-2" style="width: 100%">
+                <a   class="btn btn-info" >Đang Chờ Xác Nhận </a>
+                <a  class="btn btn-info" style="background-color: red"><i style="color:blue;" class="fas fa-truck-moving"></i>&nbsp;&nbsp;&nbsp; Đã Xác Nhận </a>
+                <a  class="btn btn-info"> Đang Vận Chuyển </a>
+                <a  class="btn btn-info"> Đã Giao Hàng</a>
+            </div>
+            <div th:case="'2'"  class="btn-group mb-2" style="width: 100%">
+                <a   class="btn btn-info" >Đang Chờ Xác Nhận</a>
+                <a  class="btn btn-info" > Đã Xác Nhận </a>
+                <a  class="btn btn-info" style="background-color: red"><i style="color:blue;" class="fas fa-truck-moving"></i>&nbsp;&nbsp;&nbsp; Đang Vận Chuyển </a>
+                <a  class="btn btn-info"> Đã Giao Hàng</a>
+            </div>
+            <div th:case="'3'"  class="btn-group mb-2" style="width: 100%">
+                <a   class="btn btn-info" >Đang Chờ Xác Nhận</a>
+                <a  class="btn btn-info"> Đã Xác Nhận </a>
+                <a  class="btn btn-info"> Đang Vận Chuyển </a>
+                <a  class="btn btn-info"  style="background-color: red"> <i style="color:blue;" class="fas fa-truck-moving"></i>&nbsp;&nbsp;&nbsp;Đã Giao Hàng</a>
+            </div>
+        </div>
+        <div th:if="${order} != null" style="display:flex">
+
+            <div class="col-md-6">
+                <div class="card card-secondary" style="height: 100%">
+                    <div class="card-header">
+                        <p style="margin-right: 160px">Thông Tin Khách Hàng</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>Mã Đơn Hàng</td>
+                                    <td th:text="${order.id}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày Đặt Hàng</td>
+                                    <td th:text="${#dates.format(order.created_at, 'dd-MM-yyyy')}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tên khách Hàng</td>
+                                    <td th:text="${order.username}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Số Điện Thoại</td>
+                                    <td th:text="${order.phone}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td th:text="${order.email}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Địa Chỉ Nhận Hàng</td>
+                                    <td th:text="${order.address}"></td>
+                                </tr>
+                                <tr th:if="${order.payment == 0}">
+                                    <td>Phương Thức Thanh Toán</td>
+                                    <td>Trả Tiền Khi Nhận Hàng</td>
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <div class="col-md-6">
+                <div class="card card-secondary" style="height: 100%">
+                    <div class="card-header">
+                        <p style="margin-right: 160px">Chi Tiết Đơn Hàng</p>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>image</th>
+                                    <th>Tên</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Tạm Tính</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="orderLine, iStat:${orderDetails}">
+                                    <td th:text="${iStat.index+1}">1.</td>
+                                    <td>
+                                        <div>
+                                            <img style="width: 50px;"
+                                                 th:src="@{'/photos/' + ${orderLine.product.image}}"
+                                                 alt="product image">
+                                        </div>
+                                    </td>
+                                    <td th:text="${orderLine.product.name}">Update software</td>
+                                    <td th:text="${#numbers.formatInteger(orderLine.product.sale_price, 3, 'POINT')} + ' đ'"></td>
+                                    <td th:text="${orderLine.qty}"></td>
+                                    <td th:text="${#numbers.formatInteger(orderLine.product.sale_price * orderLine.qty, 3, 'POINT')}+ ' đ'"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="display: inline-flex">
+                            <p style="font-size: 20px; color: black">(Đã Gồm VAT & Triết Khấu) Tổng đơn hàng:</p>&nbsp;&nbsp;
+                            <p style="font-size: 20px; color: black"
+                               th:text="${#numbers.formatInteger(order.totalprice, 3, 'POINT')}+ ' đ'"></p>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </section>
+</div>
+
+</html>
+
+
+
+
+

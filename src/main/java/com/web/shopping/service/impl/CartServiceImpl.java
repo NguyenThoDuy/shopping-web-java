@@ -50,13 +50,21 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addCartByCount(HttpSession session, Long id, int count) {
         HashMap<Long, OrderLine> cart= (HashMap<Long, OrderLine>) session.getAttribute("CART");
-        OrderLine orderLine = cart.get(id);
-        if(orderLine != null){
-            orderLine.setCount(orderLine.getCount()+count);
-        }else {
+        if(cart == null){
+            Object rawCart = session.getAttribute("CART");
+            cart = new HashMap<>();
             Optional<Product> product = Optional.ofNullable(productService.showById(id));
             cart.put(id, new OrderLine(product.get(), count));
+        }else {
+            OrderLine orderLine = cart.get(id);
+            if(orderLine != null){
+                orderLine.setCount(orderLine.getCount()+count);
+            }else {
+                Optional<Product> product = Optional.ofNullable(productService.showById(id));
+                cart.put(id, new OrderLine(product.get(), count));
+            }
         }
+
         session.setAttribute("CART", cart);
     }
 

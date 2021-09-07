@@ -40,10 +40,9 @@ public class ProductController {
     }
 
     @GetMapping("/page/{pageNumber}")
-    public String showProductPage(HttpServletRequest request,
-                                   @PathVariable int pageNumber, Model model) {
+    public String showProductPage(HttpServletRequest request, @PathVariable int pageNumber, Model model) {
         PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("products");
-        int pagesize = 2;
+        int pagesize = 5;
         List<Product> list =(List<Product>) productService.getAll();
         if (pages == null) {
             pages = new PagedListHolder<>(list);
@@ -121,20 +120,20 @@ public class ProductController {
     }
 
     //search
-    @GetMapping("search")
-    public ModelAndView search(@ModelAttribute SearchRequest searchRequest){
-        System.out.println(searchRequest.getKeyword());
-        List<Product> products = null;
-        if (searchRequest.getKeyword().isEmpty()) {
-            products = productService.getAll();
-        }else {
-            products = productService.search(searchRequest);
-        }
-        ModelAndView mav = new ModelAndView("product/list-control");
-        mav.addObject("products", products);
-        mav.addObject("search", new SearchRequest());
-        return mav;
-    }
+//    @GetMapping("search")
+//    public ModelAndView search(@ModelAttribute SearchRequest searchRequest){
+//        System.out.println(searchRequest.getKeyword());
+//        List<Product> products = null;
+//        if (searchRequest.getKeyword().isEmpty()) {
+//            products = productService.getAll();
+//        }else {
+//            products = productService.search(searchRequest);
+//        }
+//        ModelAndView mav = new ModelAndView("product/list-control");
+//        mav.addObject("products", products);
+//        mav.addObject("search", new SearchRequest());
+//        return mav;
+//    }
 
 
 }

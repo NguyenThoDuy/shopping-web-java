@@ -79,9 +79,10 @@
 
             <form class="mt-4" style="display: flex"  method="post">
               <div class="btn btn-default btn-lg btn-flat"
-                   style="margin-right: 54px; background-color: cornsilk; border-radius: 2px;">
-                <span>Tồn Kho: </span>
-                <span th:text="${product.number_import} - ${product.number_out}"></span>
+                   style="margin-right: 54px; background-color: cornsilk; border-radius: 2px;" >
+                <span th:if="${product.number_import > product.number_out}">Còn Trong Kho: </span>
+                <span th:if="${product.number_import > product.number_out}" th:text="${product.number_import} - ${product.number_out}"></span>
+                <span th:if="${product.number_import == product.number_out}" >Hết Hàng Trong Kho</span>
               </div>
 
             </form>

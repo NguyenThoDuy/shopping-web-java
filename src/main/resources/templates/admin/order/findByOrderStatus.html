@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/main-control :: main-fragment(
+~{:: #main-content}) }">
+<!-- Content Wrapper. Contains page content -->
+<div class="text-center" id="main-content">
+
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Quản Lí Đơn Hàng</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin/index"><i class="fas fa-home"></i>&nbsp;Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin/order/index">order</a></li>
+            <li class="breadcrumb-item active">control</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <div class="card">
+    <div class="card-header" style="height: 70px;">
+      <div  role="form" style=" width:30%; background-color: gold; border-radius: 3px;">
+        <form  method="get" th:action="@{/admin/index/orderStatus}" style="float: left; width: 100%;">
+          <div class="form-group">
+            <div style="display:flex" th:object="${handle}">
+              <select class="form-control" style="height:auto" th:field="*{status}" >
+                <option th:each="status:${statuss}"  th:value="${status.code}" th:text="${status.name}">Đã Đặt Hàng</option>
+              </select>
+              <input style="width: 40%" type="submit" class="btn btn-primary btn-lg btn-flat" value="Lọc Theo">
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <form div class="card-tools" th:action="@{/product/search}" style="margin-top: 10px">
+        <div class="input-group input-group-sm" style="width: 150px;" >
+          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0" style="height: 866px;">
+      <table class="table table-striped projects">
+        <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Mã đơn Hàng</th>
+          <th>Người Đặt</th>
+          <th>Trạng Thái</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order, iter:${orders}"  style="margin-top: 1px">
+          <td th:text="${iter.index + 1}"></td>
+          <td th:text="${order.id}"></td>
+          <td th:text="${order.username}"></td>
+          <td th:switch="${order.status}">
+            <span style="color:red" th:case="'0'">Chưa Xử Lí</span>
+            <span  th:case="'1'">Đã Xác Nhận</span>
+            <span th:case="'2'">Đang Vận Chuyển</span>
+            <span style="color:green" th:case="'3'">Đã Giao Hàng</span>
+          </td>
+          <td class="project-actions text-right" style="display: inline-block">
+            <a class="btn btn-info btn-sm" th:href="@{/admin/order/detail/{id} (id=${order.id})}">
+              <i class="fas fa-pencil-alt">
+              </i>
+              Chi Tiết
+            </a>
+            <a th:if="${order.status} < 3" class="btn btn-danger btn-sm" href="#" th:href="@{/admin/order/handle/{id} (id=${order.id})}" style="margin-left: 2px">
+              <i class="fas fa-truck-moving"></i>
+              Xử Lí
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    <!-- /.card-body -->
+  </div>
+</div>
+</html>

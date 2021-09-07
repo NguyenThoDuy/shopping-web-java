@@ -23,7 +23,17 @@ public interface ProductService {
 
     Boolean delete(long id);
 
-    List<Product> search(SearchRequest searchRequest);
+    List<Product> search(String searchRequest);
 
     Optional<Page<Product>> list(Pageable pageable);
+
+    List<Product> findByCatalog(Long id);
+
+    List<Product> hotSaleProduct();
+
+    List<Product> filterPrice(String price);
+
+    List<Product> filterByPriceAndCatalog(Long catalog_id, String price);
+
+    Optional<Page<Product>> sort( int key);
 }

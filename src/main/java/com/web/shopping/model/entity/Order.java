@@ -37,11 +37,11 @@ public class Order {
     private Date created_at;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade={CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User user_shop;
 
-    @JsonManagedReference
+    @Transient
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     // MapopedBy trỏ tới tên biến Address ở trong Person.
     private List<OrderDetail> carts;

@@ -21,11 +21,14 @@
         </div><!-- /.container-fluid -->
     </section>
     <div style="display: flex; " class="btn btn-primary btn-lg btn-flat">
-        <div class="btn btn-primary btn-lg btn-flat" style="display: flex" th:onclick="|window.location.href='/product/add'|">
+        <div class="btn btn-primary btn-lg btn-flat" style="display: flex"
+             th:onclick="|window.location.href='/product/add'|">
             <i class="far fa-plus-square fa-lg mr-2" style="margin-top: 6px"></i>&nbsp;&nbsp;
             Thêm Mới
-        </div><p style="margin-top: 6px">|</p>
-        <div class="btn btn-primary btn-lg btn-flat" style="display: flex" th:onclick="|window.location.href='/product'|">
+        </div>
+        <p style="margin-top: 6px">|</p>
+        <div class="btn btn-primary btn-lg btn-flat" style="display: flex"
+             th:onclick="|window.location.href='/product'|">
             Quản Lí Danh Sách Sản Phẩm
         </div>
     </div>
@@ -34,8 +37,9 @@
         <div class="card-header">
 
             <form div class="card-tools" th:action="@{/product/search}" th:object="${search}">
-                <div class="input-group input-group-sm" style="width: 150px;" >
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search" th:field="*{keyword}">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search"
+                           th:field="*{keyword}">
 
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
@@ -63,7 +67,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="product, iter:${products.pageList}"  style="margin-top: 1px">
+                <tr th:each="product, iter:${products.pageList}" style="margin-top: 1px">
                     <td th:text="${iter.index + 1}"></td>
                     <td>
                         <a th:href="@{/product/detailcontrol/{id} (id=${product.id})}">
@@ -79,13 +83,14 @@
                     <td th:text="${product.view}"></td>
                     <td th:text="${product.created_at}"></td>
                     <td th:text="${product.update_at}"></td>
-                    <td class="project-actions text-right" style="display: flex">
+                    <td class="project-actions text-right" style="display: inline-block">
                         <a class="btn btn-info btn-sm" th:href="@{/product/edit/{id} (id=${product.id})}">
                             <i class="fas fa-pencil-alt">
                             </i>
                             Edit
                         </a>
-                        <a class="btn btn-danger btn-sm" href="#" th:href="@{/product/delete/{id} (id=${product.id})}" style="margin-left: 2px">
+                        <a class="btn btn-danger btn-sm" href="#" th:href="@{/product/delete/{id} (id=${product.id})}"
+                           style="margin-left: 2px">
                             <i class="fas fa-trash">
                             </i>
                             Delete
@@ -97,7 +102,7 @@
             <ul class="pagination" style="width: 30%; margin: auto;">
                 <li
                         th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/templates/admin/product}">First</a>
+                    <a class="page-link" th:href="@{/product/page/1}">First</a>
                 </li>
                 <li
                         th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">

@@ -2,11 +2,13 @@ package com.web.shopping.controller.Web;
 
 import com.web.shopping.dto.Cart;
 import com.web.shopping.dto.OrderLine;
+import com.web.shopping.model.entity.Order;
+import com.web.shopping.model.entity.OrderDetail;
 import com.web.shopping.model.entity.User;
 import com.web.shopping.model.request.PaymentRequest;
-import com.web.shopping.model.request.SearchRequest;
 import com.web.shopping.service.CartService;
 import com.web.shopping.service.CatalogService;
+import com.web.shopping.service.OrderService;
 import com.web.shopping.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.Properties;
+import java.util.List;
 
 
 @Controller
@@ -31,6 +33,7 @@ public class CartController {
     private final CatalogService catalogService;
     private final ProductService productService;
     private final JavaMailSender sender;
+    private final OrderService orderService;
 
     @GetMapping("add/{id}")
     public String addCart(@PathVariable("id") Long id, HttpSession session, Model model, HttpServletRequest request, RedirectAttributes redirect){
@@ -102,11 +105,6 @@ public class CartController {
         cartService.removeCount(session, id);
         return "redirect:" +  request.getHeader("Referer");
     }
-    @GetMapping("error")
-    public ModelAndView error(){
-        ModelAndView mav =new ModelAndView("client/error/404error");
-        return mav;
-    }
 
     @GetMapping("payment")
     public ModelAndView payment(HttpSession session){
@@ -122,4 +120,47 @@ public class CartController {
         mav.addObject("catalogs", catalogService.getAll());
         return mav;
     }
+
+    @GetMapping("search")
+    public ModelAndView search( HttpSession session){
+        ModelAndView mav = new ModelAndView("web/cart/searchOrder");
+        User user = (User) session.getAttribute("USER");
+        mav.addObject("user", user);
+        mav.addObject("cartCount", cartService.countItemInCart(session));
+        mav.addObject("catalogs", catalogService.getAll());
+        return mav;
+    }
+
+    @PostMapping("search")
+    public ModelAndView searchOrder(@RequestParam("id") String id, HttpSession session){
+        System.out.println("=======================>" + id);
+        ModelAndView mav = new ModelAndView();
+        Order order = orderService.searchOrderById(id);
+        if(order != null){
+            mav.setViewName("web/cart/searchOrder");
+            List<OrderDetail> orderDetails = orderService.findOrderId(id);
+            User user = (User) session.getAttribute("USER");
+            mav.addObject("user", user);
+            mav.addObject("cartCount", cartService.countItemInCart(session));
+            mav.addObject("catalogs", catalogService.getAll());
+            mav.addObject("order", order);
+            mav.addObject("orderDetails", orderDetails);
+        }else {
+            mav.setViewName("web/cart/searchOrder");
+            mav.addObject("order", order);
+            mav.addObject("error", "Mã đơn hàng bạn nhập không đúng!");
+            User user = (User) session.getAttribute("USER");
+            mav.addObject("user", user);
+            mav.addObject("catalogs", catalogService.getAll());
+        }
+
+        return mav;
+    }
+
+    @GetMapping("error")
+    public String error(){
+
+        return "/web/error/404error";
+    }
+
 }

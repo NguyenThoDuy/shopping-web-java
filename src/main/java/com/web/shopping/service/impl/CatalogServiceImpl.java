@@ -45,9 +45,8 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public Catalog showById(long id) {
-        return getAll().stream()
-                .filter(p -> p.getId()==id)
-                .findFirst().get();
+        Catalog catalogById = catalogRepo.getById(id);
+        return catalogById;
     }
 
     @Override

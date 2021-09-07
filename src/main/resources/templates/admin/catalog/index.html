@@ -24,16 +24,26 @@
                 <div class="col-md-6" style="margin-left: 122px;">
                     <div class="card">
                         <div class="card-header card-catalog">
-                            <div th:class="add-catalog">
+                            <div th:class="add-catalog"  th:if="${catalogById} == null">
                                 <form th:action="@{/catalog/add}" method="post" th:object="${catalog}">
                                     <input class="btn btn-sm btn-primary"type="submit" value="Add" style="float: left; height: 38px; border-radius: 5px; width: 60px">
                                     <input th:field="*{name}" class="form-control" id="exampleInputEmail1" placeholder=" Add new_catalog..." style="float: left; width: 190px">
                                 </form>
                             </div>
-                            <div th:class="search-catalog">
+                            <div th:class="search-catalog"  th:if="${catalogById} == null">
                                 <form th:action="@{/catalog/search}" method="get" th:object="${search}">
                                     <input class="form-control" id="exampleInputEmail" th:placeholder="keyword....." name="keyword" th:field="*{keyword}" style="float: left; width: 190px">
                                     <input type="submit" value="Search" class="btn btn-sm btn-primary" style="float: right; height: 38px; border-radius: 5px">
+                                </form>
+                            </div>
+                            <div th:if="${catalogById} != null" style="display: flex">
+                                <a href="/catalog">
+                                    <i class="fas fa-arrow-circle-left"></i>
+                                </a>&nbsp;&nbsp;&nbsp;
+                                <form style="margin:auto" th:action="@{/catalog/update}" method="post" th:object="${catalogById}">
+                                    <input type="hidden" name="id" th:field="*{id}">
+                                    <input class="form-control" type="text" name="name" th:field="*{name}" style="float: left; width: 190px">
+                                    <input  type="submit" value="update" class="btn btn-sm btn-primary" style="float: right; height: 38px; border-radius: 5px">
                                 </form>
                             </div>
                         </div>
@@ -77,6 +87,7 @@
                                 <li class="page-item"><a class="page-link" href="#">»</a></li>
                             </ul>
                         </div>
+
                     </div>
                     <!-- /.card -->
                 </div>

@@ -56,6 +56,8 @@ public class Product {
     public boolean matchWithKeyword(String keyword) {
         String keywordLowerCase = keyword.toLowerCase();
         return (name.toLowerCase().contains(keywordLowerCase) ||
-                manufacturer.toLowerCase().contains(keywordLowerCase));
+                manufacturer.toLowerCase().contains(keywordLowerCase) ||
+                description.toLowerCase().contains(keywordLowerCase));
     }
 }
+

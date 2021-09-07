@@ -6,19 +6,18 @@ import com.web.shopping.dto.OrderLine;
 import com.web.shopping.model.entity.Order;
 import com.web.shopping.model.entity.OrderDetail;
 import com.web.shopping.model.entity.Product;
+import com.web.shopping.model.entity.User;
 import com.web.shopping.model.request.OrderRequest;
 import com.web.shopping.model.request.PaymentRequest;
-import com.web.shopping.model.response.OrderResponse;
 import com.web.shopping.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDetailRepo orderDetailRepo;
     private final UserRepo userRepo;
     private final ProductRepo productRepo;
-    private final CatalogRepo catalogRepo;
+    private final ProductServiceImpl productImpl;
     long millis = System.currentTimeMillis();
     public java.sql.Date date=new java.sql.Date(millis);
 
@@ -71,29 +70,62 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Product> findByOrder(long id) {
-       List<Product> products = null;
-       String ids = String.valueOf(id);
-        try {
-           products = catalogRepo.findProductsByCatalogId(ids);
-        }catch (Exception ex){
-            log.info(ex.getMessage());
-        }
+    public Order searchOrderById(String id) {
+       Order order = null;
+       try {
+           order = orderRepo.getById(Long.valueOf(id));
 
-        return products;
+       }catch (Exception ex){
+           log.info(ex.getMessage());
+       }
+
+       return order;
     }
 
-   public List<OrderDetail> showOrderDetail(Long id) {
-        List<OrderDetail> orderDetails = null;
-        Order order = orderRepo.getById(id);
-        try {
-            orderDetails = orderDetailRepo.findByOrder(order);
-        }catch (Exception ex){
-            log.info(ex.getMessage());
-        }
+    @Override
+    public List<OrderDetail> findOrderId(String id) {
+        int ids = Integer.parseInt(id);
+        List<OrderDetail> orderDetails = orderDetailRepo.findAll().stream()
+                .filter(p -> p.getOrder().getId() == ids).collect(Collectors.toList());
 
         return orderDetails;
     }
+
+    //get ALL
+    @Override
+    public List<Order> getAll() {
+        List<Order> orders = orderRepo.findAll();
+        return orders;
+    }
+
+    @Override
+    public Optional<Page<Order>> list(Pageable pageable) {
+        Page<Order> page = null;
+        try {
+            page = orderRepo.findAll(pageable);
+        } catch (Exception ex) {
+            log.error("get all car error: " + ex.getMessage());
+        }
+        return Optional.ofNullable(page);
+    }
+
+    @Override
+    public void updateStatusOrder(Long id, int status) {
+        Optional<Order> order = orderRepo.findById(id);
+        if(order.isPresent()){
+            order.get().setStatus(status);
+            orderRepo.save(order.get());
+        }
+    }
+
+    @Override
+    public List<Order> searchByOrderStatus(int status) {
+        List<Order> orders = getAll().stream()
+                .filter(o -> o.getStatus() == status)
+                .collect(Collectors.toList());
+        return orders;
+    }
+
 
     private OrderRequest convertOrder(PaymentRequest request, HttpSession session) {
         HashMap<Long, OrderLine> cart= (HashMap<Long, OrderLine>) session.getAttribute("CART");
