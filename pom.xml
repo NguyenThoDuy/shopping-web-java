@@ -104,47 +104,23 @@
 
 	<build>
 		<plugins>
+
+			<!-- Heroku Maven Plugin Configuration -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.3</version>
 				<configuration>
-					<source>9</source>
-					<target>9</target>
+					<appName>callicoder-heroku-maven-demo</appName>
+					<includeTarget>false</includeTarget>
+					<includes>
+						<include>${project.build.directory}/${project.build.finalName}.jar</include>
+					</includes>
+					<jdkVersion>${java.version}</jdkVersion>
+					<processTypes>
+						<web>java $JAVA_OPTS -jar ${project.build.directory}/${project.build.finalName}.jar</web>
+					</processTypes>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer
-										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>META-INF/spring.handlers</resource>
-								</transformer>
-								<transformer
-										implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">
-									<resource>META-INF/spring.factories</resource>
-								</transformer>
-								<transformer
-										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>META-INF/spring.schemas</resource>
-								</transformer>
-								<transformer
-										implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								<transformer
-										implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.web.shopping.ShoppingApplication</mainClass>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 
 		</plugins>
