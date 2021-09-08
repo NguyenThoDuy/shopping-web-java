@@ -104,28 +104,48 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>com.package.MainClass</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<source>9</source>
+				<target>9</target>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-shade-plugin</artifactId>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>shade</goal>
+					</goals>
+					<configuration>
+						<transformers>
+							<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+								<resource>META-INF/spring.handlers</resource>
+							</transformer>
+							<transformer
+									implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">
+								<resource>META-INF/spring.factories</resource>
+							</transformer>
+							<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+								<resource>META-INF/spring.schemas</resource>
+							</transformer>
+							<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+							<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<mainClass>com.web.shopping.ShoppingApplication</mainClass>
+							</transformer>
+						</transformers>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
 		</plugins>
 	</build>
 
