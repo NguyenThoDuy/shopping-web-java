@@ -112,7 +112,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.web.shopping</mainClass>
+							<mainClass>java com.web.shopping.ShoppingApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
