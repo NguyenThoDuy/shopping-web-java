@@ -42,13 +42,14 @@ public class AuthController {
     public ModelAndView add(@ModelAttribute UserRequest user) throws InterruptedException {
         Boolean check = userService.add(user);
         ModelAndView mav  = new ModelAndView();
+
         if(check){
             mav.addObject("error", "Tạo tài khoản không thành công");
             Thread.sleep(1000);
             mav.setViewName("redirect:/auth/login");
         }else {
             mav.setViewName("auth/sigup");
-            mav.addObject("form", new UserRequest());
+            mav.addObject("user", new UserRequest());
             mav.addObject("error", "Tạo tài khoản không thành công");
         }
 

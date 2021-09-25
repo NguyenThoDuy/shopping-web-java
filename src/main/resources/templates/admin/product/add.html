@@ -22,7 +22,9 @@
     </section>
 
     <!-- Main content -->
-    <form th:action="@{/product/add}" method="post" enctype="multipart/form-data" th:object="${product}" name="product">
+    <form th:action="@{/product/add}" method="post" enctype="multipart/form-data" th:object="${product}" name="product"
+          onsubmit="return validateform()">
+
         <section class="content">
             <div class="row">
                 <div class="col-md-6">
@@ -34,22 +36,21 @@
                             <div class="form-group">
                                 <label for="name">Tên sản phẩm</label>
                                 <input type="text" id="name" name="name" th:field="*{name}" class="form-control">
-                                <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >name</div>
+                                <div><span id="check-name" style="color:red;"></span></div>
                             </div>
                             <div class="form-group">
                                 <label for="manufacturer">Nhà Sản Xuất</label>
                                 <input type="text" id="manufacturer" class="form-control" name="manufacturer" th:field="*{manufacturer}">
-                                <div class="text-danger"  th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}" >manufacturer</div>
+                                <div><span id="check-manufacture" style="color:red;"></span></div>
                             </div>
                             <div class="form-group">
                                 <label for="description">Thông Tin Chi Tiết Sản Phẩm</label>
                                 <textarea id="description" class="form-control" rows="4"  style="height: 126px;" th:field="*{description}" name="description"></textarea>
-                                <div class="text-danger"  th:if="${#fields.hasErrors('description')}" th:errors="*{description}" >descripton</div>
+                                <div><span id="check-description" style="color:red;"></span></div>
                             </div>
                             <div class="form-group">
                                 <label for="catalog">Danh Mục</label>
                                 <select class="form-control custom-select" name="catalog" th:field="*{catalog_id}" id="catalog">
-                                    <option  th:each="catalog :${catalogs}" th:value="${catalog.id}" th:text="${catalog.name}">Select Catalog</option>
                                 </select>
                             </div>
 
@@ -74,7 +75,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text">.00</span>
                                     </div>
-                                    <div class="text-danger"  th:if="${#fields.hasErrors('import_price')}" th:errors="*{import_price}" >import_price</div>
+                                    <div><span id="check-import_price" style="color:red;"></span></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -87,13 +88,13 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text">.00</span>
                                     </div>
-                                    <div class="text-danger"  th:if="${#fields.hasErrors('sale_price')}" th:errors="*{sale_price}" >sale_price</div>
+                                    <div><span id="check-sale_price" style="color:red;"></span></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="number_import">Số Lượng Nhập</label>
                                 <input type="number" id="number_import" class="form-control" th:field="*{number_import}" name="number_import">
-                                <div class="text-danger"  th:if="${#fields.hasErrors('number_import')}" th:errors="*{number_import}" >number_import</div>
+                                <div><span id="check-number_import" style="color:red;"></span></div>
                             </div>
                             <div class="form-group">
                                 <label for="photo" style="margin-top: 19px">Ảnh Sản Phẩm</label><br>
@@ -118,6 +119,67 @@
         </section>
     </form>
     <!-- /.content -->
+    <script>
+        function validateform() {
+            var name = document.product.name.value;
+            var manufacture = document.product.manufacturer.value;
+            var description = document.product.description.value;
+            var importprice = document.product.import_price.value;
+            var saleprice = document.product.sale_price.value;
+            var numberimport = document.product.number_import.value;
+            var status = false;
+            // validate username
+            if (name == null || name == "") {
+                document.getElementById("check-name").innerHTML =
+                    " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Tên không được để trống!";
+                status = false;
+            } else if (name != null) {
+                document.getElementById("check-name").style.display = "none";
+                status = true;
+            }
+            //manufacture
+            if (manufacture == null || manufacture == "") {
+                document.getElementById("check-manufacture").innerHTML =
+                    " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Hãng sản xuất không được để trống!";
+                status = false;
+            } else if (manufacture != null){
+                document.getElementById("check-manufacture").style.display = "none";
+                status = true;
+            }
+
+            //import-price
+            if (importprice == null || importprice == "") {
+                document.getElementById("check-import_price").innerHTML =
+                    " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Giá nhập vào không được để trống!";
+                status = false;
+            } else if (importprice != null) {
+                document.getElementById("check-import_price").style.display = "none";
+                status = true;
+            }
+
+            //sale-price
+            if (saleprice == null || saleprice == "") {
+                document.getElementById("check-sale_price").innerHTML =
+                    " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Giá bán ra không được để trống!";
+                status = false;
+            }else if (saleprice != null) {
+                document.getElementById("check-sale_price").style.display = "none";
+                status = true;
+            }
+
+            //number-import
+            if (numberimport == null || numberimport == "") {
+                document.getElementById("check-number_import").innerHTML =
+                    " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Số lượng sản phẩm nhập không được để trống!";
+                status = false;
+            }else if (numberimport != null) {
+                document.getElementById("check-number_import").style.display = "none";
+                status = true;
+            }
+            return status;
+        }
+    </script>
 </div>
+
 
 </html>

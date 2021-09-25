@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li th:if="${user != null}" style="margin-top: 5px"><a style="color: black; font-size: 20px" href="/auth/logout">Đăng Xuất</a></li>
                 <li th:if="${user != null}" style="margin-top: 5px"><a style="color: black; font-size: 20px" th:onclick="|window.location.href='/auth/edit/${user.id}'|">Thay Đổi Thông Tin</a></li>
                 <li style="margin-top: 5px"><a style="color: black; font-size: 20px" href="/cart/search">Lịch Sử Mua Hàng</a></li>
-                <li sec:authorize="hasAuthority('ADMIN')"  style="margin-top: 5px"><a style="color: black; font-size: 20px" href="/admin">Trang Quản Trị</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')"  style="margin-top: 5px"><a style="color: black; font-size: 20px" href="/admin/index">Trang Quản Trị</a></li>
             </ul>
         </div>
     </aside>

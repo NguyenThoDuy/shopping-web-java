@@ -98,7 +98,7 @@ public class HomeController {
            mav.addObject("catalogs", catalogService.getAll());
        }else if(catalog_id == null && price != null){
            List<Product> products = productService.filterPrice(price);
-           mav.setViewName("web/findByCatalog/index");
+           mav.setViewName("web/findByKeyWord/index");
            mav.addObject("products", products);
            User user = (User) session.getAttribute("USER");
            mav.addObject("user", user);
@@ -106,7 +106,7 @@ public class HomeController {
            mav.addObject("catalogs", catalogService.getAll());
        }else{
            List<Product> products = productService.filterByPriceAndCatalog(catalog_id, price);
-           mav.setViewName("web/findByCatalog/index");
+           mav.setViewName("web/findByKeyWord/index");
            mav.addObject("products", products);
            User user = (User) session.getAttribute("USER");
            mav.addObject("user", user);

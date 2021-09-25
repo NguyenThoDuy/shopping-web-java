@@ -1,125 +1,210 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head id="header">
-  <meta >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Đăng Ký</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Đăng Ký</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Bootstrap Color Picker -->
-  <link rel="stylesheet" href="/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-  <!-- Tempusdominus Bbootstrap 4 -->
-  <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-  <!-- Bootstrap4 Duallistbox -->
-  <link rel="stylesheet" href="/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
-  <div class="register-logo">
-    <a href=""><img style="width: 50px; height: 50px;margin-bottom: 10px" src="../../dist/img/logoshop.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
-      DUY_SHOP</a>
-  </div>
-
-  <div class="card">
-    <div class="card-body register-card-body">
-      <p class="login-box-msg">Tạo mới tài khoản</p>
-      <p class="login-box-msg text-danger">[[${error}]]</p>
-
-      <form th:action="@{/auth/sigup}" method="post" id="register-form" th:object="${user}">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Họ tên" id="fullname" name="username" th:field="*{username}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Mật khẩu" id="password" name="password" th:field="*{password}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" id="repassword" name="repassword">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" id="email" name="email" th:field="*{email}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Số điện thoại"
-                 data-inputmask="'mask': ['999-999-9999', '+099 99 99 999']" data-mask th:field="*{phone}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-phone"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-              <label for="agreeTerms">
-                Tôi đồng ý với <a href="#">điều khoản</a>
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Tạo</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-
-      <div class="social-auth-links text-center">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i>
-          Sign up using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i>
-          Sign up using Google+
-        </a>
-      </div>
-
-      <a th:href="@{/auth/login}" class="text-center">Đã có tài khoản</a>
+    <div class="register-logo">
+        <a href=""><img style="width: 50px; height: 50px;margin-bottom: 10px" src="../../dist/img/logoshop.png"
+                        alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+            DUY_SHOP</a>
     </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
+
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Tạo mới tài khoản</p>
+            <p class="login-box-msg text-danger">[[${error}]]</p>
+
+            <form th:action="@{/auth/sigup}" name="form1" method="post" id="register-form" th:object="${user}"
+                  onsubmit="return validateform()">
+                <div><span id="check-username" style="color:red;"></span></div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Họ tên" id="username" name="username"
+                           th:field="*{username}">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div><span id="check-password" style="color:red;"></span></div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Mật khẩu" id="password" name="password"
+                           th:field="*{password}">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div><span id="check-repassword" style="color:red;"></span></div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" id="repassword"
+                           name="repassword">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div><span id="check-email" style="color:red;"></span></div>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Email" id="email" name="email"
+                           th:field="*{email}">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div><span id="check-mobile" style="color:red;"></span></div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Số điện thoại"
+                           data-inputmask="'mask': ['999-999-9999', '+099 99 99 999']" data-mask th:field="*{phone}">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-phone"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                            <label for="agreeTerms">
+                                Tôi đồng ý với <a href="#">điều khoản</a>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Tạo</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i>
+                    Sign up using Facebook
+                </a>
+                <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i>
+                    Sign up using Google+
+                </a>
+            </div>
+
+            <a th:href="@{/auth/login}" class="text-center">Đã có tài khoản</a>
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
 </div>
 <!-- /.register-box -->
 
 <!-- jQuery -->
+<script>
+    function validateform() {
+        var name = document.form1.username.value;
+        var password = document.form1.password.value;
+        var repassword = document.form1.repassword.value;
+        var email = document.form1.email.value;
+        var phone = document.form1.phone.value;
+        var status = false;
+        // validate username
+        if (name == null || name == "") {
+            document.getElementById("check-username").innerHTML =
+                " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Tên không được để trống!";
+            status = false;
+        } else if (name.length <= 3) {
+            document.getElementById("check-username").innerHTML =
+            " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Tên phải nhiều hơn 3 ký tự";
+        } else if (name != null) {
+            document.getElementById("check-username").style.display = "none";
+            status = true;
+        }
+        //password
+        if (password == null || password == "") {
+            document.getElementById("check-password").innerHTML =
+                " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Mật Khẩu không được để trống!";
+            status = false;
+        } else if (password.length <= 5) {
+            document.getElementById("check-password").innerHTML =
+            " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Mật Khẩu phải nhiều hơn 6 ký tự";
+        } else {
+            document.getElementById("check-password").style.display = "none";
+            status = true;
+        }
+
+        //repassword
+        if (repassword == null || repassword == "") {
+            document.getElementById("check-repassword").innerHTML =
+                " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Mật Khẩu không được để trống!";
+            status = false;
+        }else if (password != repassword) {
+            document.getElementById("check-repassword").innerHTML =
+                " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Mật Khẩu bạn nhập không khớp!";
+            status = false;
+        }else if (password == repassword) {
+            document.getElementById("check-repassword").style.display = "none";
+            status = true;
+        }
+
+        //email
+        if (email == null || email == "") {
+            document.getElementById("check-email").innerHTML =
+                " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> email Khẩu không được để trống!";
+            status = false;
+        }else if (email != null) {
+            document.getElementById("check-email").style.display = "none";
+            status = true;
+        }
+
+        //phone
+        if (phone == null || phone == "") {
+            document.getElementById("check-mobile").innerHTML =
+                " <img src=\"../dist/img/img-17.png\" alt=\"AQ Mobile\"> Số điện thoại không được để trống!";
+            status = false;
+        }else if (phone != null) {
+            document.getElementById("check-mobile").style.display = "none";
+            status = true;
+        }
+        return status;
+    }
+</script>
+
 <script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/plugins/bootstrap/js/bootstrap.bundle.js"></script>
@@ -145,96 +230,6 @@
 <script src="/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
 
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-
-    // validation
-    $.validator.setDefaults({
-      // submitHandler: function () {
-      //     // alert( "Form successful submitted!" );
-      //     $.ajax({
-      //
-      //     })
-      // }
-    });
-    $('#register-form').validate({
-      rules: {
-        username: {
-          required: true,
-          minlength: 3
-        },
-        fullname: {
-          required: true,
-          minlength: 3
-        },
-        email: {
-          required: true,
-          email: true,
-        },
-        password: {
-          required: true,
-          minlength: 6
-        },
-        repassword: {
-          required: true,
-        },
-        mobile: {
-          required: true,
-        },
-        terms: {
-          required: true
-        },
-      },
-      messages: {
-        username: {
-          required: "Chưa nhập tên đăng nhập",
-          minlength: "Tên đăng nhập ít nhất 4 ký tự"
-        },
-        fullname: {
-          required: "Chưa nhập họ tên",
-          minlength: "Họ tên ít nhất 4 ký tự"
-        },
-        email: {
-          required: "Chưa nhập email",
-          email: "Email không đúng định dạng"
-        },
-        password: {
-          required: "Chưa nhập mật khẩu",
-          minlength: "Mật khẩu ít nhất 6 ký tự"
-        },
-        repassword: {
-          required: "Chưa xác nhận mật khẩu"
-        },
-        mobile: {
-          required: "Chưa nhập số điện thoại",
-        },
-        terms: "Please accept our terms"
-      },
-      errorElement: 'span',
-      errorPlacement: function (error, element) {
-        // console.log("error: " + JSON.stringify(error))
-        // console.log("element: " + JSON.stringify(element))
-        error.addClass('invalid-feedback');
-        element.closest('.input-group').append(error);
-      },
-      highlight: function (element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
-      },
-      unhighlight: function (element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
-      }
-    });
-  })
-</script>
 </body>
 </html>

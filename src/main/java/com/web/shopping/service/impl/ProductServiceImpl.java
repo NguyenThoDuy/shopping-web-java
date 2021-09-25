@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
         return productCreate;
     }
 
-    //showBYid
+    //showByid
     @Override
     public Product showById(long id) {
         Product productById = productRepo.getById(id);
@@ -84,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
         return productById;
     }
 
-    //    update
+    //update
     @Override
     public Product update(ProductEditForm request) {
         log.info(" -------------->id:  " + request.getId());
