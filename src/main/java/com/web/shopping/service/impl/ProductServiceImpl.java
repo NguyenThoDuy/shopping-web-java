@@ -119,12 +119,19 @@ public class ProductServiceImpl implements ProductService {
         }).orElseThrow(() -> new ResourceNotFoundException("product by id " + id + "not found"));
     }
 
-    @Override
+        @Override
     public List<Product> search(String request) {
-        return getAll().stream()
-                .filter(p -> p.matchWithKeyword(request))
-                .collect(Collectors.toList());
+//        return getAll().stream()
+//                .filter(p -> p.matchWithKeyword(request))
+//                .collect(Collectors.toList());
+
+            return productRepo.search(request);
     }
+//    @Override
+//    public List<Product> search(String keywork) {
+//        return productRepo.searchByKyework(keywork);
+//    }
+
 
     @Override
     public Optional<Page<Product>> list(Pageable pageable) {
@@ -173,12 +180,12 @@ public class ProductServiceImpl implements ProductService {
                 break;
             case 2:
                 products = getAll().stream()
-                        .filter(p -> p.getSale_price() >=2000000 && p.getSale_price() <= 5000000)
+                        .filter(p -> p.getSale_price() >= 2000000 && p.getSale_price() <= 5000000)
                         .collect(Collectors.toList());
                 break;
             case 3:
                 products = getAll().stream()
-                        .filter(p -> p.getSale_price() >=5000000 && p.getSale_price() <= 10000000)
+                        .filter(p -> p.getSale_price() >= 5000000 && p.getSale_price() <= 10000000)
                         .collect(Collectors.toList());
                 break;
             case 4:
@@ -202,7 +209,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Optional<Page<Product>> sort(int key) {
         Page<Product> page = null;
-        switch (key){
+        switch (key) {
             case 1:
                 Pageable pageab1 = PageRequest.of(0, 12, Sort.by("name").ascending());
                 page = productRepo.findAll(pageab1);
@@ -217,7 +224,7 @@ public class ProductServiceImpl implements ProductService {
                 break;
         }
 
-        return  Optional.ofNullable(page);
+        return Optional.ofNullable(page);
     }
 
 

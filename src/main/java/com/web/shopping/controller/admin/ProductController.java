@@ -82,7 +82,6 @@ public class ProductController {
      @PostMapping(value = "add", consumes = {"multipart/form-data"})
     public String upload(@Valid @ModelAttribute ProductRequest request, BindingResult result, Model model) {
         // xử lí các trường để trống thi báo lỗi
-
         productService.add(request);
         return "redirect:/product";
     }

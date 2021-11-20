@@ -51,6 +51,10 @@
                             <div class="form-group">
                                 <label for="catalog">Danh Mục</label>
                                 <select class="form-control custom-select" name="catalog" th:field="*{catalog_id}" id="catalog">
+                                        <option th:each="catalog : ${catalogs}"
+                                                th:value="${catalog.id}"
+                                                th:utext="${catalog.name}"/>
+                                    </select>
                                 </select>
                             </div>
 
