@@ -56,6 +56,10 @@ BUILD SUCCESS:
 <img width="1716" alt="Screen Shot 2021-11-21 at 21 18 10" src="https://user-images.githubusercontent.com/80323466/142765476-54967ca9-48c5-4a72-bc30-f2ebb8ccf0a2.png">
 
 
+account has permissions ADMIN: 
+email: thoduyqt@gmail.com
+pass:  123456
+
 **structure project
 
 1.database
