@@ -78,3 +78,9 @@ BUILD SUCCESS:
 4. detail structure fontend
 
  <img width="501" alt="Screen Shot 2021-11-21 at 00 32 24" src="https://user-images.githubusercontent.com/80323466/142735820-9af80f8b-979d-4104-92a3-1df1909eda39.png">
+ 
+ 
+ - processing progress:
+
+![process](https://user-images.githubusercontent.com/80323466/142769676-3bcea140-b50d-46dc-b173-ba4faf45e5bc.png)
+
