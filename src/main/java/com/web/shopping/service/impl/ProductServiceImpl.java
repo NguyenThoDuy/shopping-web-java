@@ -119,18 +119,7 @@ public class ProductServiceImpl implements ProductService {
         }).orElseThrow(() -> new ResourceNotFoundException("product by id " + id + "not found"));
     }
 
-        @Override
-    public List<Product> search(String request) {
-//        return getAll().stream()
-//                .filter(p -> p.matchWithKeyword(request))
-//                .collect(Collectors.toList());
 
-            return productRepo.search(request);
-    }
-//    @Override
-//    public List<Product> search(String keywork) {
-//        return productRepo.searchByKyework(keywork);
-//    }
 
 
     @Override
@@ -225,6 +214,12 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return Optional.ofNullable(page);
+    }
+
+    @Override
+    public List<Product> searchByKyework(String keywork) {
+        List<Product> products = productRepo.search(keywork);
+        return products;
     }
 
 

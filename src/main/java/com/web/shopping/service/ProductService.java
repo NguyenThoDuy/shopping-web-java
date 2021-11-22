@@ -23,7 +23,6 @@ public interface ProductService {
 
     Boolean delete(long id);
 
-    List<Product> search(String searchRequest);
 
     Optional<Page<Product>> list(Pageable pageable);
 
@@ -36,4 +35,6 @@ public interface ProductService {
     List<Product> filterByPriceAndCatalog(Long catalog_id, String price);
 
     Optional<Page<Product>> sort( int key);
+
+    List<Product> searchByKyework(String keywork);
 }

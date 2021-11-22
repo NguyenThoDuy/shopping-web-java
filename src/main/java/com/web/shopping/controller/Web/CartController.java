@@ -11,7 +11,6 @@ import com.web.shopping.service.CatalogService;
 import com.web.shopping.service.OrderService;
 import com.web.shopping.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,6 @@ public class CartController {
     private final CartService cartService;
     private final CatalogService catalogService;
     private final ProductService productService;
-    private final JavaMailSender sender;
     private final OrderService orderService;
 
     @GetMapping("add/{id}")

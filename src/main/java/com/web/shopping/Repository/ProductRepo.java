@@ -12,9 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Long> {
-//    @Query(value = "SELECT p FROM Product p WHERE p.catalog.id = :catalogId", nativeQuery = true)
-//    List<Product> findProductsByCatalogId(String catalogId);
-
- @Query("SELECT p FROM Product p WHERE p.name LIKE CONCAT('%', :keyword, '%') OR p.catalog.name LIKE CONCAT('%', :keyword, '%')")
+//    or p.catalog.name like concat('%', :keywork, '%')"
+    @Query("select p from Product p where p.name like concat('%', :keywork, '%')")
     List<Product> search(String keywork);
 }
